@@ -2,6 +2,7 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const path = require('path');
 
+const { mongoConnect,mongoUri } = require('./util/database');
 const feedRoutes = require('./routes/feed');
 
 const PORT = process.env.PORT || 8080;
@@ -21,4 +22,10 @@ app.use((req, res, next) => {
 
 app.use('/feed', feedRoutes);
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+mongoConnect
+.then(result => {
+  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+})
+.catch(err => {
+  console.log(err)
+});
