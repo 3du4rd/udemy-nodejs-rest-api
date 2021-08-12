@@ -25,6 +25,7 @@
   "homepage": "https://github.com/3du4rd/udemy-nodejs-rest-api#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.12.1",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
