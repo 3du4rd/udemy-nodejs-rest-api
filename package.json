@@ -1,0 +1,33 @@
+{
+  "name": "nodejs-api",
+  "version": "1.0.0",
+  "description": "REST API built with NodeJs and ExpressJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3du4rd/udemy-nodejs-rest-api.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "nodejs",
+    "expressjs"
+  ],
+  "author": "Eduard Correa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/3du4rd/udemy-nodejs-rest-api/issues"
+  },
+  "homepage": "https://github.com/3du4rd/udemy-nodejs-rest-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
