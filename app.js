@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 const { mongoConnect,mongoUri } = require('./util/database');
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -55,6 +56,7 @@ app.use((req, res, next) => {
 
 app.use('/feed', feedRoutes);
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 //-> Middleware para Manejo de Errores
 app.use((error, req, res, next) => {
