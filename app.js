@@ -69,7 +69,21 @@ app.use((error, req, res, next) => {
 
 mongoConnect
 .then(result => {
-  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+    //const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+    const server = app.listen(PORT);
+    const io = require('./socket').init(server);
+    
+    io.on('connection', socket => {
+        socket.on('connect', () => {
+            console.log('Client connected');
+        });
+        socket.on('event', data => {
+            console.log('Socket Event: ' + data);
+        });
+        socket.on('disconnect', () => {
+            console.log('Client disconnected');
+        });
+    });
   console.log('UUID: ' + uuidv4());
 })
 .catch(err => {
