@@ -2,12 +2,12 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const path = require('path');
 const multer = require('multer');
-const { v4: uuidv4 } = require('uuid'); 
+const { graphqlHTTP } = require('express-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
+
 
 const { mongoConnect,mongoUri } = require('./util/database');
-const feedRoutes = require('./routes/feed');
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -54,9 +54,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/feed', feedRoutes);
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
+//-> GraphQL
+app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema: graphqlSchema,
+      rootValue: graphqlResolver,
+      graphiql: true
+    })
+  );
 
 //-> Middleware para Manejo de Errores
 app.use((error, req, res, next) => {
@@ -69,22 +75,7 @@ app.use((error, req, res, next) => {
 
 mongoConnect
 .then(result => {
-    //const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-    const server = app.listen(PORT);
-    const io = require('./socket').init(server);
-    
-    io.on('connection', socket => {
-        socket.on('connect', () => {
-            console.log('Client connected');
-        });
-        socket.on('event', data => {
-            console.log('Socket Event: ' + data);
-        });
-        socket.on('disconnect', () => {
-            console.log('Client disconnected');
-        });
-    });
-  console.log('UUID: ' + uuidv4());
+    const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 })
 .catch(err => {
   console.log(err)
