@@ -57,7 +57,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use(auth);
 
 //-> GraphQL
@@ -68,6 +67,7 @@ app.use(
       rootValue: graphqlResolver,
       graphiql: true,
       formatError(err) {
+          console.error(err);
         if (!err.originalError) {
           return err;
         }
