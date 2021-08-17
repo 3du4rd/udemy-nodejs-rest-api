@@ -4,8 +4,9 @@
   "description": "REST API built with NodeJs and ExpressJS",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node app.js",
+    "start:dev": "nodemon app.js",
     "dev": "nodemon app.js"
   },
   "repository": {
@@ -38,6 +39,12 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "nodemon": "^2.0.12",
+    "sinon": "^11.1.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
